@@ -45,11 +45,11 @@ def stdin_get_list() -> list:
             return None
         return None
     except KeyboardInterrupt:
-        CLI.console.print_exception(max_frames=3)
+        CLI.console.print_exception(max_frames = 3)
     except NameError:
-        CLI.console.print_exception(max_frames=3)
+        CLI.console.print_exception(max_frames = 3)
     except IOError:
-        CLI.console.print_exception(max_frames=3)
+        CLI.console.print_exception(max_frames = 3)
 
 
 def open_file(filename: str) -> list[str]:
@@ -68,15 +68,15 @@ def main(target_str_list: list, template_str: str) -> None:
             if list is type(target_str_list):
                 try:
                     THREAD.exec_thread(
-                        function_name=CMD.command_template,
-                        command_str=template_str,
-                        target_list=target_str_list,
-                        argparse=ARGS,
+                        function_name = CMD.command_template,
+                        command_str = template_str,
+                        target_list = target_str_list,
+                        argparse = ARGS,
                     )
                 except Exception:
-                    CLI.console.print_exception(max_frames=3)
+                    CLI.console.print_exception(max_frames = 3)
         except BrokenPipeError:
-            CLI.console.print_exception(max_frames=3)
+            CLI.console.print_exception(max_frames = 3)
 
 
 if __name__ == '__main__':
@@ -88,22 +88,22 @@ if __name__ == '__main__':
 
     try:
         parser = RichArgumentParser(
-            prog="strx",
-            formatter_class=lambda prog: RawDescriptionHelpFormatter(
-                prog, max_help_position=60,
-                indent_increment=13),
-            description=setting.BANNER_HELP
+            prog = "strx",
+            formatter_class = lambda prog: RawDescriptionHelpFormatter(
+                prog, max_help_position = 60,
+                indent_increment = 13),
+            description = setting.BANNER_HELP
         )
-        parser.add_argument('-list', '-l', metavar="file", help="Arquivo com strings para execução", default=stdin_get_list())
-        parser.add_argument('-str', '-st', metavar="cmd", help="String template de comando", default=None, required=True)
-        parser.add_argument('-out', '-o', metavar="file", help="Arquivo output de valores da execução shell", default=setting.LOG_FILE_OUTPUT)
-        parser.add_argument('-pipe', '-p', metavar="cmd", help="Comando que será executado depois de um pipe |", default=None)
-        parser.add_argument('-verbose', '-v', help="Modo verboso", action='store_true', default=False)
-        parser.add_argument('-thread', '-t', metavar=f"<{setting.THREAD_MAX}>", help="Quantidade de threads", default=setting.THREAD_MAX)
-        parser.add_argument('-pf', help="Mostrar resultados da execução de função", action='store_true', default=False)
-        parser.add_argument('-of', help="Habilitar output de valores da execução de função", action='store_true', default=False)
-        parser.add_argument('-filter', '-f', metavar="value", help="Valor para filtrar strings para execução", default=None, required=False)
-        parser.add_argument('-sleep', metavar="<5>", help="Segundos de delay entre threads", default=None, required=False)
+        parser.add_argument('-list', '-l', metavar = "file", help = "Arquivo com strings para execução", default = stdin_get_list())
+        parser.add_argument('-str', '-st', metavar = "cmd", help = "String template de comando", default = None, required = True)
+        parser.add_argument('-out', '-o', metavar = "file", help = "Arquivo output de valores da execução shell", default = setting.LOG_FILE_OUTPUT)
+        parser.add_argument('-pipe', '-p', metavar = "cmd", help = "Comando que será executado depois de um pipe |", default = None)
+        parser.add_argument('-verbose', '-v', help = "Modo verboso", action = 'store_true', default = False)
+        parser.add_argument('-thread', '-t', metavar = f"<{setting.THREAD_MAX}>", help = "Quantidade de threads", default = setting.THREAD_MAX)
+        parser.add_argument('-pf', help = "Mostrar resultados da execução de função", action = 'store_true', default = False)
+        parser.add_argument('-of', help = "Habilitar output de valores da execução de função", action = 'store_true', default = False)
+        parser.add_argument('-filter', '-f', metavar = "value", help = "Valor para filtrar strings para execução", default = None, required = False)
+        parser.add_argument('-sleep', metavar = "<5>", help = "Segundos de delay entre threads", default = None, required = False)
         
         ARGS = parser.parse_args()
 
@@ -121,12 +121,12 @@ if __name__ == '__main__':
         CMD.verbose = ARGS.verbose
 
         main(
-            target_str_list=target_list,
-            template_str=ARGS.str
+            target_str_list = target_list,
+            template_str = ARGS.str
         )
     except KeyboardInterrupt:
         pass
     except SystemError:
-        CLI.console.print_exception(max_frames=3)
+        CLI.console.print_exception(max_frames = 3)
     except ModuleNotFoundError:
-        CLI.console.print_exception(max_frames=3)
+        CLI.console.print_exception(max_frames = 3)
